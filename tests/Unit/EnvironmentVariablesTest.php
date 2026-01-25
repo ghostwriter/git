@@ -15,7 +15,6 @@ use Throwable;
 use function is_a;
 
 #[CoversClass(Git::class)]
-#[CoversClass(EnvironmentVariables::class)]
 #[CoversClass(WorkingDirectory::class)]
 #[CoversClass(GitDefinition::class)]
 #[CoversClass(EnvironmentVariables::class)]
