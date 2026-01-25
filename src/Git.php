@@ -393,6 +393,39 @@ final readonly class Git implements GitInterface
      * @throws GitExceptionInterface
      * @throws ShellExceptionInterface
      */
+    public function execute(string ...$arguments): ResultInterface
+    {
+        $result = $this->shell->execute(
+            command: self::COMMAND,
+            arguments: $arguments,
+            workingDirectory: $this->workingDirectory->toString(),
+            environmentVariables: $this->environmentVariables->toArray(),
+        );
+
+        if ($result->exitCode() === 0) {
+            return $result;
+        }
+
+        throw new GitCommandFailedException(sprintf(
+            'Git command "%s" failed with exit code %s.%sSTDOUT: %s%sSTDERR: %s%sWorking Directory: %s%s',
+            implode(' ', $result->command()),
+            $result->exitCode(),
+            PHP_EOL,
+            mb_trim($result->stdout()),
+            PHP_EOL,
+            mb_trim($result->stderr()),
+            PHP_EOL,
+            $this->workingDirectory->toString(),
+            PHP_EOL,
+        ));
+    }
+
+    /**
+     * @param list<non-empty-string> $arguments
+     *
+     * @throws GitExceptionInterface
+     * @throws ShellExceptionInterface
+     */
     #[Override]
     public function fetch(string ...$arguments): ResultInterface
     {
@@ -753,38 +786,5 @@ final readonly class Git implements GitInterface
     public function worktree(string ...$arguments): ResultInterface
     {
         return $this->execute(self::WORKTREE, ...$arguments);
-    }
-
-    /**
-     * @param list<non-empty-string> $arguments
-     *
-     * @throws GitExceptionInterface
-     * @throws ShellExceptionInterface
-     */
-    private function execute(string ...$arguments): ResultInterface
-    {
-        $result = $this->shell->execute(
-            command: self::COMMAND,
-            arguments: $arguments,
-            workingDirectory: $this->workingDirectory->toString(),
-            environmentVariables: $this->environmentVariables->toArray(),
-        );
-
-        if ($result->exitCode() === 0) {
-            return $result;
-        }
-
-        throw new GitCommandFailedException(sprintf(
-            'Git command "%s" failed with exit code %s.%sSTDOUT: %s%sSTDERR: %s%sWorking Directory: %s%s',
-            implode(' ', $result->command()),
-            $result->exitCode(),
-            PHP_EOL,
-            mb_trim($result->stdout()),
-            PHP_EOL,
-            mb_trim($result->stderr()),
-            PHP_EOL,
-            $this->workingDirectory->toString(),
-            PHP_EOL,
-        ));
     }
 }

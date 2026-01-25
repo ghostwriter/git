@@ -170,6 +170,14 @@ interface GitInterface
      * @throws GitExceptionInterface
      * @throws ShellExceptionInterface
      */
+    public function execute(string ...$arguments): ResultInterface;
+
+    /**
+     * @param list<non-empty-string> $arguments
+     *
+     * @throws GitExceptionInterface
+     * @throws ShellExceptionInterface
+     */
     public function fetch(string ...$arguments): ResultInterface;
 
     /**
