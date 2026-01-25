@@ -18,12 +18,6 @@ use Override;
 use Tests\Unit\GitTest;
 use Throwable;
 
-use const PHP_EOL;
-
-use function implode;
-use function mb_trim;
-use function sprintf;
-
 /** @see GitTest */
 final readonly class Git implements GitInterface
 {
@@ -406,18 +400,7 @@ final readonly class Git implements GitInterface
             return $result;
         }
 
-        throw new GitCommandFailedException(sprintf(
-            'Git command "%s" failed with exit code %s.%sSTDOUT: %s%sSTDERR: %s%sWorking Directory: %s%s',
-            implode(' ', $result->command()),
-            $result->exitCode(),
-            PHP_EOL,
-            mb_trim($result->stdout()),
-            PHP_EOL,
-            mb_trim($result->stderr()),
-            PHP_EOL,
-            $this->workingDirectory->toString(),
-            PHP_EOL,
-        ));
+        throw new GitCommandFailedException($result, $this->workingDirectory);
     }
 
     /**
