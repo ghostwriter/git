@@ -1,0 +1,9 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Ghostwriter\Git\Interface\ExceptionI;
+
+use Throwable;
+
+interface GitExceptionInterface extends Throwable {}

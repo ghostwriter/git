@@ -5,18 +5,14 @@
 [![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/git?color=8892bf)](https://www.php.net/supported-versions)
 [![Downloads](https://badgen.net/packagist/dt/ghostwriter/git?color=blue)](https://packagist.org/packages/ghostwriter/git)
 
-work in progress
-
-> [!WARNING]
->
-> This project is not finished yet, work in progress.
+PHP wrapper for Git commands
 
 ## Installation
 
 You can install the package via composer:
 
 ``` bash
-composer require ghostwriter/wip
+composer require ghostwriter/git
 ```
 
 ### Star ⭐️ this repo if you find it useful
@@ -26,13 +22,34 @@ You can also star (🌟) this repo to find it easier later.
 ## Usage
 
 ```php
-// work in progress
+use Ghostwriter\Git\Git;
+
+$environmentVariables = [
+    'GIT_AUTHOR_NAME'  => 'Nathanael Esayeas',
+    'GIT_AUTHOR_EMAIL' => 'nathanael.esayeas@protonmail.com',
+];
+
+$git = Git::new('/path/to/repo', $environmentVariables);
+$git->init();
+$git->add('file.txt');
+$git->commit('-m', 'Initial commit');
+$git->push('origin', 'main');
+
+// Cloning a repository
+$git->clone('git@github.com:ghostwriter/git.git', '--depth=1', '/path/to/clone');
+
+// Each cloned repository should be managed with its own Git instance as follows:
+$environmentVariables['GIT_AUTHOR_NAME'] = 'ghostwriter';
+$environmentVariables['GIT_AUTHOR_EMAIL'] = 'ghostwriter@users.noreply.github.com';
+
+$clonedGit = Git::new('/path/to/clone', $environmentVariables);
+$clonedGit->status();
 ```
 
 ### Credits
 
 - [Nathanael Esayeas](https://github.com/ghostwriter)
-- [All Contributors](https://github.com/ghostwriter/wip/contributors)
+- [All Contributors](https://github.com/ghostwriter/git/contributors)
 
 ### Changelog
 
