@@ -21,7 +21,7 @@ final readonly class GitDefinition implements DefinitionInterface
     #[Override]
     public function __invoke(ContainerInterface $container): void
     {
-        $container->alias(Git::class, GitInterface::class);
+        $container->alias(GitInterface::class, Git::class);
         $container->factory(Git::class, GitFactory::class);
     }
 }
