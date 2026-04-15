@@ -80,7 +80,7 @@
     "extra": {
         "ghostwriter": {
             "container": {
-                "provide": ["Ghostwriter\\Git\\Container\\GitProvider"]
+                "provider": ["Ghostwriter\\Git\\Container\\GitProvider"]
             }
         },
         "thanks": {
