@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Exception;
 
-use Ghostwriter\Git\Container\GitDefinition;
+use Ghostwriter\Git\Container\GitProvider;
 use Ghostwriter\Git\EnvironmentVariables;
 use Ghostwriter\Git\Exception\GitCommandFailedException;
 use Ghostwriter\Git\Git;
@@ -20,7 +20,7 @@ use function is_a;
 #[CoversClass(Git::class)]
 #[CoversClass(EnvironmentVariables::class)]
 #[CoversClass(WorkingDirectory::class)]
-#[CoversClass(GitDefinition::class)]
+#[CoversClass(GitProvider::class)]
 #[CoversClass(GitCommandFailedException::class)]
 final class GitCommandFailedExceptionTest extends AbstractTestCase
 {
