@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Ghostwriter\Git\Container\GitDefinition;
+use Ghostwriter\Git\Container\GitProvider;
 use Ghostwriter\Git\EnvironmentVariables;
 use Ghostwriter\Git\Git;
 use Ghostwriter\Git\Interface\WorkingDirectoryInterface;
@@ -16,7 +16,7 @@ use function is_a;
 
 #[CoversClass(Git::class)]
 #[CoversClass(EnvironmentVariables::class)]
-#[CoversClass(GitDefinition::class)]
+#[CoversClass(GitProvider::class)]
 #[CoversClass(WorkingDirectory::class)]
 final class WorkingDirectoryTest extends AbstractTestCase
 {
