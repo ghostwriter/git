@@ -8,7 +8,7 @@ use Ghostwriter\Container\Interface\ContainerInterface;
 use Ghostwriter\Container\Interface\Service\FactoryInterface;
 use Ghostwriter\Filesystem\Interface\FilesystemInterface;
 use Ghostwriter\Git\Container\Ghostwriter\Git\GitFactory;
-use Ghostwriter\Git\Container\GitDefinition;
+use Ghostwriter\Git\Container\GitProvider;
 use Ghostwriter\Git\EnvironmentVariables;
 use Ghostwriter\Git\Git;
 use Ghostwriter\Git\Interface\GitInterface;
@@ -22,7 +22,7 @@ use function is_a;
 #[CoversClass(Git::class)]
 #[CoversClass(EnvironmentVariables::class)]
 #[CoversClass(WorkingDirectory::class)]
-#[CoversClass(GitDefinition::class)]
+#[CoversClass(GitProvider::class)]
 #[CoversClass(GitFactory::class)]
 final class GitFactoryTest extends AbstractTestCase
 {
@@ -33,14 +33,16 @@ final class GitFactoryTest extends AbstractTestCase
 
         $filesystem->expects(self::once())
             ->method('currentWorkingDirectory')
-            ->willReturn($this->workspace);
+            ->willReturn($this->workspace)
+            ->seal();
 
         $container = $this->createMock(ContainerInterface::class);
 
         $container->expects(self::once())
             ->method('get')
             ->with(FilesystemInterface::class)
-            ->willReturn($filesystem);
+            ->willReturn($filesystem)
+            ->seal();
 
         $git = (new GitFactory())($container);
 
