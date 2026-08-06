@@ -44,7 +44,7 @@
         "ext-mbstring": "*",
         "ghostwriter/container": "^7.0.2",
         "ghostwriter/filesystem": "^0.2.1",
-        "ghostwriter/shell": "^0.1.5"
+        "ghostwriter/shell": "^0.1.6"
     },
     "require-dev": {
         "ext-xdebug": "*",
