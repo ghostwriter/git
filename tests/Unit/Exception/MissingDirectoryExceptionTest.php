@@ -7,10 +7,9 @@ namespace Tests\Unit\Exception;
 use Exception;
 use Ghostwriter\Git\Container\GitProvider;
 use Ghostwriter\Git\EnvironmentVariables;
-use Ghostwriter\Git\Exception\MissingGitSubdirectoryException;
+use Ghostwriter\Git\Exception\MissingDirectoryException;
 use Ghostwriter\Git\Git;
 use Ghostwriter\Git\Interface\ExceptionI\GitExceptionInterface;
-use Ghostwriter\Git\WorkingCopyDirectory;
 use Ghostwriter\Git\WorkingDirectory;
 use Ghostwriter\PHPUnitAssertions\Trait\AssertionsTrait;
 use InvalidArgumentException;
@@ -23,56 +22,55 @@ use Throwable;
 #[CoversClass(EnvironmentVariables::class)]
 #[CoversClass(Git::class)]
 #[CoversClass(GitProvider::class)]
-#[CoversClass(WorkingCopyDirectory::class)]
+#[CoversClass(MissingDirectoryException::class)]
 #[CoversClass(WorkingDirectory::class)]
-#[CoversClass(MissingGitSubdirectoryException::class)]
-final class MissingGitSubdirectoryExceptionTest extends AbstractTestCase
+final class MissingDirectoryExceptionTest extends AbstractTestCase
 {
     use AssertionsTrait;
 
     /** @throws Throwable */
     public function testExtendsException(): void
     {
-        self::assertClassExtendsClass(MissingGitSubdirectoryException::class, Exception::class);
+        self::assertClassExtendsClass(MissingDirectoryException::class, Exception::class);
     }
 
     /** @throws Throwable */
     public function testExtendsInvalidArgumentException(): void
     {
-        self::assertClassExtendsClass(MissingGitSubdirectoryException::class, InvalidArgumentException::class);
+        self::assertClassExtendsClass(MissingDirectoryException::class, InvalidArgumentException::class);
     }
 
     /** @throws Throwable */
     public function testExtendsLogicException(): void
     {
-        self::assertClassExtendsClass(MissingGitSubdirectoryException::class, LogicException::class);
+        self::assertClassExtendsClass(MissingDirectoryException::class, LogicException::class);
     }
 
     /** @throws Throwable */
     public function testImplementsGhostwriterGitInterfaceExceptionIGitExceptionInterface(): void
     {
-        self::assertClassImplementsInterface(MissingGitSubdirectoryException::class, GitExceptionInterface::class);
+        self::assertClassImplementsInterface(MissingDirectoryException::class, GitExceptionInterface::class);
     }
 
     /** @throws Throwable */
     public function testImplementsStringable(): void
     {
-        self::assertClassImplementsInterface(MissingGitSubdirectoryException::class, Stringable::class);
+        self::assertClassImplementsInterface(MissingDirectoryException::class, Stringable::class);
     }
 
     /** @throws Throwable */
     public function testImplementsThrowable(): void
     {
-        self::assertClassImplementsInterface(MissingGitSubdirectoryException::class, Throwable::class);
+        self::assertClassImplementsInterface(MissingDirectoryException::class, Throwable::class);
     }
 
     /** @throws Throwable */
-    public function testWorkingCopyDirectory(): void
+    public function testWorkingDirectory(): void
     {
-        $this->expectException(MissingGitSubdirectoryException::class);
+        $this->expectException(MissingDirectoryException::class);
 
         $invalidWorkingDirectory = $this->workspace . '/non-existent-directory';
 
-        WorkingCopyDirectory::new($invalidWorkingDirectory);
+        WorkingDirectory::new($invalidWorkingDirectory);
     }
 }

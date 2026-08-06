@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Git;
 
-use Ghostwriter\Git\Exception\MissingDirectoryException;
+use Ghostwriter\Git\Exception\MissingGitSubdirectoryException;
 use Ghostwriter\Git\Interface\WorkingDirectoryInterface;
+
+use const DIRECTORY_SEPARATOR;
 
 use function is_dir;
 use function sprintf;
 
-final readonly class WorkingDirectory implements WorkingDirectoryInterface
+final readonly class WorkingCopyDirectory implements WorkingDirectoryInterface
 {
     public function __construct(
         private string $path
     ) {
-        if (! is_dir($path)) {
-            throw new MissingDirectoryException(
-                sprintf('The directory "%s" does not exist.', $path)
+        if (! is_dir($path . DIRECTORY_SEPARATOR . '.git')) {
+            throw new MissingGitSubdirectoryException(
+                sprintf('The directory "%s" is not a Git working directory.', $path)
             );
         }
     }

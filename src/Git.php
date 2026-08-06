@@ -18,7 +18,9 @@ use Override;
 use Tests\Unit\GitTest;
 use Throwable;
 
-/** @see GitTest */
+/**
+ * @see GitTest
+ */
 final readonly class Git implements GitInterface
 {
     private const string ADD = 'add';

@@ -30,11 +30,12 @@ final class GitProviderTest extends AbstractTestCase
     {
         $container = $this->createMock(ContainerInterface::class);
 
-        $container->expects(self::once())->method('alias')->with(GitInterface::class, Git::class, );
+        $container->expects(self::once())->method('alias')->with(GitInterface::class, Git::class);
         $container->expects(self::once())->method('factory')->with(Git::class, GitFactory::class)
             ->seal();
 
-        (new GitProvider())->register($container);
+        $gitProvider = new GitProvider();
+        $gitProvider->register($container);
     }
 
     public function testImplementsProviderInterface(): void
